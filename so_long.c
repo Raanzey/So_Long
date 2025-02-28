@@ -44,5 +44,3 @@ int is_rectangular(char **map)
     }
     return (1);
 }
-
-
