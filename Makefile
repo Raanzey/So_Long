@@ -1,26 +1,36 @@
 NAME = so_long
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS = cc -Wall -Wextra -Werror
+# Kütüphaneler
+LIBFT = library/libft/libft.a
+GNL = library/get_next_line/get_next_line.c
 
-SOURCES = so_long  libft/get_next_line.c 
+# Kaynak dosyalar
+SOURCES = so_long.c so_long_utils.c map_controller.c $(GNL)
 
-LIBFT = libft/libft.a
+# Object dosyaları (otomatik oluşturma)
+OBJECTS = $(SOURCES:.c=.o)
 
-
-
+# Derleme Kuralları
 all: $(NAME)
 
+$(NAME): $(OBJECTS) $(LIBFT)
+	@make -C ./library/libft
+	@$(CC) $(CFLAGS) $(LIBFT) $(OBJECTS)  -o $(NAME)  
 
-$(NAME): $(SOURCES)
-	make -C ./libft -s
-	$(CFLAGS) -g -o $(NAME) $(SOURCES) $(LIBFT)
+# .c -> .o dönüşümü
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
+# Temizlik Kuralları
 clean:
-	make clean -C ./libft -s
+	@make clean -C ./library/libft -s
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	make fclean -C ./libft -s
-	rm -f $(NAME)
+	@make fclean -C ./library/libft -s
+	@rm -f $(NAME)
 
 re: fclean all
 

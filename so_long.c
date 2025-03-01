@@ -1,46 +1,73 @@
-#include <fcntl.h>
-#include <stdlib.h> 
-#include <stdio.h> 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/01 15:27:34 by yozlu             #+#    #+#             */
+/*   Updated: 2025/03/01 16:22:37 by yozlu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "so_long.h"
+#include<stdio.h>
 
-char    **read_map(char *file)
+int	map_height(char *file)
 {
-    int i;
-    int fd;
-    char *line;
-    char **map;
+	char	*line;
+	int		fd;
+	int		i;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-        return NULL;
-    i = 0;    
-    while (line = get_next_line(fd))
-    {
-        i++;
-        free(line);
-    }
-    close(fd);
-    map = malloc(i * sizeof(char *));
-    if (!map)
-        return NULL;
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-        return (free(map),NULL);  
-    i = -1;
-    while (line = get_next_line(fd))
-        map[++i] = line;
-    return map, close(fd);   
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	i = 0;
+    line = get_next_line(fd);
+	while (line)
+	{
+		i++;
+		free(line);
+        line = get_next_line(fd);
+	}
+	close(fd);
+	return (i);
 }
-int is_rectangular(char **map)
+
+int	read_map(t_game *game, char *file)
 {
-    int i;
+	int		i;
+	int		fd;
+	char	*line;
+	char	**map;
+
+	game->height = map_height(file); 
+	map = malloc((map_height(file) + 1) * sizeof(char *));
+	if (!map)
+		return (0);
     
-    i = 1;
-    while (map[i])
-    {
-        if (ft_strlen(map[i]) != strlen(map[0]))
-            return (0); 
-        i++;
-    }
-    return (1);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (free(map), 0);
+	i = 0;
+	while ((line = get_next_line(fd)))
+		map[i++] = line;
+	close(fd);
+	game->map = map;
+	game->width = ft_strlen(map[0]);
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+    t_game *game;
+    game = malloc(sizeof(t_game));
+    if (argc == 1)
+		exit(EXIT_SUCCESS);
+    file_extension(argv[1]);
+    printf("BAŞARILI\n");
+	read_map(game, argv[1]);
+    map_check(game);
+	return (0);
 }
