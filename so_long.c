@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:27:34 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/01 16:22:37 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/02 16:12:00 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ int	map_height(char *file)
 	if (fd < 0)
 		return (0);
 	i = 0;
+	printf("agfk\n");
     line = get_next_line(fd);
+	printf("agfk\n");
+	
 	while (line)
 	{
 		i++;
 		free(line);
         line = get_next_line(fd);
 	}
+	printf("agfk\n");
 	close(fd);
 	return (i);
 }
@@ -66,7 +70,6 @@ int	main(int argc, char **argv)
     if (argc == 1)
 		exit(EXIT_SUCCESS);
     file_extension(argv[1]);
-    printf("BAŞARILI\n");
 	read_map(game, argv[1]);
     map_check(game);
 	return (0);

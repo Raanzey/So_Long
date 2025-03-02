@@ -3,17 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 18:25:36 by yozlu             #+#    #+#             */
-/*   Updated: 2025/02/25 18:43:54 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/02 16:07:51 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "get_next_line.h"
 
-static char	*ft_line_before(char *station)
+static char	*ft_strchr_1(const char *s, int c)
+{
+	char	a;
+
+	a = (char)c;
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (unsigned char)a)
+			return ((char *)s);
+		s++;
+	}
+	if (a == '\0')
+		return ((char *)s);
+	return (0);
+}
+
+char	*ft_line_before(char *station)
 {
 	char	*result;
 	int		i;
@@ -23,7 +40,7 @@ static char	*ft_line_before(char *station)
 		return (NULL);
 	while (station[i] && station[i] != '\n')
 		i++;
-	result = ft_substr(station, 0, i + (station[i] == '\n'));
+	result = ft_substr_1(station, 0, i + (station[i] == '\n'));
 	if (!result)
 		return (NULL);
 	if (station[i] == '\n')
@@ -35,19 +52,17 @@ static char	*ft_line_before(char *station)
 	return (result);
 }
 
-static char	*ft_line_after(char *station)
+char	*ft_line_after(char *station)
 {
-	int		i;
 	char	*after_station;
 	char	*temp;
 
-	i = 0;
-	if (!station[i])
+	if (!station[0])
 		return (free(station), NULL);
-	temp = ft_strchr(station, '\n');
+	temp = ft_strchr_1(station, '\n');
 	if (temp)
 	{
-		after_station = ft_substr(temp, 1, ft_strlen(temp));
+		after_station = ft_substr_1(temp, 1, ft_strlen_1(temp));
 		if (!after_station)
 		{
 			free(station);
@@ -56,8 +71,8 @@ static char	*ft_line_after(char *station)
 		free(station);
 		return (after_station);
 	}
-	temp = ft_strchr(station, '\0');
-	after_station = ft_substr(temp, 0, ft_strlen(temp));
+	temp = ft_strchr_1(station, '\0');
+	after_station = ft_substr_1(temp, 0, ft_strlen_1(temp));
 	if (!after_station)
 		return (free(station), NULL);
 	return (free(station), after_station);
@@ -68,7 +83,7 @@ char	*station_read(char *buffer, char *station, int fd)
 	int	count;
 
 	count = 1;
-	while (!ft_strchr(station, '\n') && count != 0)
+	while (!ft_strchr_1(station, '\n') && count != 0)
 	{
 		count = read(fd, buffer, BUFFER_SIZE);
 		if (count == -1)
@@ -82,7 +97,7 @@ char	*station_read(char *buffer, char *station, int fd)
 			return (NULL);
 		}
 		buffer[count] = '\0';
-		station = ft_strjoin(station, buffer);
+		station = ft_strjoin_1(station, buffer);
 	}
 	return (station);
 }
@@ -97,7 +112,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = malloc((BUFFER_SIZE + 1));
 	if (buffer == NULL)
-		return (free(buffer), NULL);
+		return (NULL);
 	station = station_read(buffer, station, fd);
 	if (!station)
 		return (NULL);

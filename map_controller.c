@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:05:46 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/01 15:35:49 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/02 16:33:53 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static void	map_contents(t_game *game)
 				game->collectibles++;
 		}
 	}
-	if (game->player_count != 1 && game->exit != 1
-		&& !(game->collectibles > 1))
+	if (game->player_count != 1 || game->exit != 1
+		|| !(game->collectibles >= 1))
 			error(game->map);
 }
 
@@ -80,7 +80,10 @@ static void	map_wall(t_game *game)
 {
 	int i;
 	i = 0;
-	while (i < game->width)
+	printf("%d\n", game->height);
+	printf("%d\n", game->width);
+
+	while (i < game->width - 1)
 	{
 		if (game->map[0][i] != '1' || game->map[game->height - 1][i] != '1')
 			error(game->map);
@@ -89,7 +92,7 @@ static void	map_wall(t_game *game)
 	i = 0;
 	while (i < game->height)
 	{
-		if (game->map[i][0] != '1' || game->map[i][game->width - 1] != '1')
+		if (game->map[i][0] != '1' || game->map[i][game->width - 2] != '1')
 			error(game->map);
 		i++;
 	}
