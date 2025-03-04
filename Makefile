@@ -1,6 +1,6 @@
 NAME=so_long
 
-SRCS=  libft/get_next_line.c libft/get_next_line_utils.c so_long.c map_controller.c so_long_utils.c
+SRCS=  libft/get_next_line.c libft/get_next_line_utils.c so_long.c map_controller.c so_long_utils.c map_check.c
 CFLAGS=-Wall -Wextra -Werror
 LIBFT=libft/libft.a
 MLX_LIB=minilibx/libmlx.a

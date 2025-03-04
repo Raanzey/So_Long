@@ -3,29 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:03:33 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/01 15:32:12 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/04 15:59:04 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	error(char **map)
+void 	error_map(char **map)
 {
-	int i = 0;
-
-    if (!map)
-        return;
-    while (map[i])
+	int i;
+	i = 0;
+    if (map)
     {
-        free(map[i]);
-        i++;
+        while (map[i])
+        {
+            free(map[i]);
+            i++;
+        }
+        free(map);
     }
-    free(map);
-	write(1, "Error\n", 6);
-	exit(EXIT_FAILURE);
+}
+
+void	error_game(t_game *game)
+{
+	int i;
+	
+    if (game && game->map)
+    {
+        i = 0;
+        while (game->map[i])
+        {
+            free(game->map[i]);
+            i++;
+        }
+        free(game->map);
+    }
+    if (game)
+        free(game);
+    write(1, "Error\n", 6);
+    exit(EXIT_FAILURE);
 }
 
 int	ft_strcmp(const char *str1, const char *str2)

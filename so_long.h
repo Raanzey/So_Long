@@ -20,14 +20,17 @@ typedef struct s_game
     int     player_count;       
     int     player_x;     // Oyuncunun X konumu
     int     player_y;     // Oyuncunun Y konumu
+    int     count;
     int     collectibles; // Toplanabilir öğe sayısı (C)
     int     moves;        // Hamle sayısı
 } t_game;
  	
 int read_map(t_game *game, char *file);
 int	ft_strcmp(const char *str1, const char *str2);
-void	file_extension(char *filename);
-void	map_check(t_game *game);
-void	error(char **map);
+void	file_extension(char *filename, t_game *game);
+void	map_cntrl(t_game *game);
+void	error_game(t_game *game);
+void 	error_map(char **map);
+void    flood_fill_controller(t_game *game);
 
 #endif
