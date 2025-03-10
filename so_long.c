@@ -6,12 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:27:34 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/04 16:18:24 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:55:46 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
+#include "minilibx/mlx.h"
 #include<stdio.h>
 
 int	map_height(char *file)
@@ -52,7 +53,11 @@ int	read_map(t_game *game, char *file)
 		return (free(map), 0);
 	i = 0;
 	while ((line = get_next_line(fd)))
+	{
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		map[i++] = line;
+	}
 	close(fd);
 	game->map = map;
 	game->width = ft_strlen(map[0]);
@@ -64,11 +69,12 @@ int	main(int argc, char **argv)
 	t_game *game;
     game = malloc(sizeof(t_game));
     if (argc == 1)
-	exit(EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
     file_extension(argv[1], game);
 	read_map(game, argv[1]);
 	map_cntrl(game);
 	flood_fill_controller(game);
-	printf("basarılı\n");
+	window(game);
+	mlx_loop(game->mlx);
 	return (0);
 }

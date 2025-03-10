@@ -49,7 +49,7 @@ static void flood_fill(t_game *game, char **map, int x, int y)
     if (map[y][x] == 'C') 
         game->count++; 
     if (map[y][x] == 'E') 
-        game->exit = 2; 
+        game->exit_count = 2; 
     map[y][x] = 'F';
     flood_fill(game, map, x - 1, y);
     flood_fill(game, map, x + 1, y);
@@ -66,11 +66,8 @@ void flood_fill_controller(t_game *game)
     player_position(game);
     game->count = 0;
     flood_fill(game, new_map, game->player_x, game->player_y);
-    printf("EXİT-->%d\n",game->exit);
-    printf("COUNT-->%d == COLLECTİBLES-->%d\n",game->count, game->collectibles);
-    if (game->exit != 2 || game->count != game->collectibles)
+    if (game->exit_count != 2 || game->count != game->collectibles)
     {
-        //printf("buradaa\n");
         error_game(game);
         error_map(new_map);
     }

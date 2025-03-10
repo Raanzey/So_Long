@@ -13,10 +13,15 @@ typedef struct s_game
 {
 	void    *mlx;         // MiniLibX bağlantısı
     void    *win;         // Pencere
+    void    *wall;
+    void    *path;
+    void    *exit;
+    void    *collectible;
+    void    *player;
     char    **map;        // Harita (2D dizi)
     int     width;        // Haritanın genişliği
     int     height;       // Haritanın yüksekliği
-    int     exit;
+    int     exit_count;
     int     player_count;       
     int     player_x;     // Oyuncunun X konumu
     int     player_y;     // Oyuncunun Y konumu
@@ -32,5 +37,6 @@ void	map_cntrl(t_game *game);
 void	error_game(t_game *game);
 void 	error_map(char **map);
 void    flood_fill_controller(t_game *game);
+void window(t_game *game);
 
 #endif
