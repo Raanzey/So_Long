@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:03:33 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/04 15:59:04 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/13 14:20:43 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	error_game(t_game *game)
     }
     if (game)
         free(game);
-    write(1, "Error\n", 6);
-    exit(EXIT_FAILURE);
 }
 
 int	ft_strcmp(const char *str1, const char *str2)

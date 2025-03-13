@@ -46,11 +46,14 @@ static void flood_fill(t_game *game, char **map, int x, int y)
 {
     if (x < 0 || y < 0 || map[y] == NULL || map[y][x] == '1' || map[y][x] == 'F')
         return;    
+    map[y][x] = 'F';
     if (map[y][x] == 'C') 
         game->count++; 
     if (map[y][x] == 'E') 
-        game->exit_count = 2; 
-    map[y][x] = 'F';
+    {
+        game->exit_count = 2;
+        return;
+    }
     flood_fill(game, map, x - 1, y);
     flood_fill(game, map, x + 1, y);
     flood_fill(game, map, x , y - 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_controller.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:05:46 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/10 17:02:30 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/13 14:22:19 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	map_cntrl(t_game *game)
 {
 	is_rectangular(game);
 	map_contents(game);
-	
 	map_wall(game);
 }
 
@@ -33,7 +32,11 @@ static void	is_rectangular(t_game *game)
 	while (i < game->height)
 	{
 		if (ft_strlen(game->map[i]) != (size_t)game->width)
+		{
 			error_game(game);
+			write(1, "Error\n", 6);
+    		exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 }
@@ -75,7 +78,11 @@ static void	map_contents(t_game *game)
 	}
 	if (game->player_count != 1 || game->exit_count != 1
 		|| !(game->collectibles >= 1))
-			error_game(game);
+	{
+		error_game(game);
+	    write(1, "Error\n", 6);
+    	exit(EXIT_FAILURE);
+	}	
 }
 
 static void	map_wall(t_game *game)
@@ -85,14 +92,22 @@ static void	map_wall(t_game *game)
 	while (i < game->width)
 	{
 		if (game->map[0][i] != '1' || game->map[game->height - 1][i] != '1')
+		{
 			error_game(game);
+	    	write(1, "Error\n", 6);
+    		exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 	i = 0;
 	while (i < game->height)
 	{
 		if (game->map[i][0] != '1' || game->map[i][game->width - 1] != '1')
+		{
 			error_game(game);
+	    	write(1, "Error\n", 6);
+    		exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 }

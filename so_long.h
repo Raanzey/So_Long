@@ -31,6 +31,7 @@ typedef struct s_game
 } t_game;
  	
 int read_map(t_game *game, char *file);
+int key_hook(int key_code, t_game *game);
 int	ft_strcmp(const char *str1, const char *str2);
 void	file_extension(char *filename, t_game *game);
 void	map_cntrl(t_game *game);

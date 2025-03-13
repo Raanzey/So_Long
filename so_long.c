@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:27:34 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/10 16:55:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/03/13 14:46:08 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int argc, char **argv)
 	map_cntrl(game);
 	flood_fill_controller(game);
 	window(game);
+	mlx_key_hook(game->win, key_hook, game);
 	mlx_loop(game->mlx);
 	return (0);
 }
