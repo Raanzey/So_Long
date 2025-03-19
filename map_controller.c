@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:05:46 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/19 12:39:31 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:20:31 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static void	map_wall(t_game *game);
 
 void	map_cntrl(t_game *game)
 {
+	game->mlx = NULL;
+	game->win = NULL;
+	game->wall = NULL;
+	game->path = NULL;
+	game->exit = NULL;
+	game->collectible = NULL;
+	game->player = NULL;
 	is_rectangular(game);
 	game->player_count = 0;
 	game->exit_count = 0;

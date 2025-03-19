@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/18 16:18:58 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:05:18 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void free_game(t_game *game)
 {
-    free_textures(game);    
+	free_textures(game);    
 	if (game->map)
         free_map(game->map, game->height);
     if (game->win)
@@ -97,9 +97,10 @@ void	flood_fill_controller(t_game *game)
 	flood_fill(game, new_map, game->player_x, game->player_y);
 	if (game->exit_count != 2 || game->count != game->collectibles)
 	{
+		free_map(new_map, game->height);
+		free_map(game->map, game->height);
 		free(game);
 		error_message(4);
-		exit(EXIT_FAILURE);
 	}
 	free_map(new_map, game->height);	
 }

@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 15:27:34 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/18 16:28:51 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:10:38 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int	finish(t_game *game)
 {
 	free_game(game);
+	write(1, "Congratulations you finished\n", 29);
 	exit(EXIT_SUCCESS);
 }
 
