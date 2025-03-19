@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 11:03:33 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/17 16:21:42 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/18 16:18:10 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,24 @@ void	error_message(int id)
 		write(1, "Error: Invalid map contents!\n", 29);
 	else if (id == 3)
 		write(1, "Error: Map is not enclosed by walls!\n", 37);
-	else
-		write(1, "Error\n", 22);
+	else if (id == 4)
+		write(1, "Error: Unattainable target!\n", 29);
 	exit(EXIT_FAILURE);
 }
 
-void	free_map(char **map)
+void	free_map(char **map, int height)
 {
 	int	i;
 
+	if (!map)
+		return ;
 	i = 0;
-	if (map)
+	while (i < height)
 	{
-		while (map[i])
-		{
-			free(map[i]);
-			i++;
-		}
-		free(map);
+		free(map[i]);
+		i++;
 	}
+	free(map);
 }
 
 int	ft_strcmp(const char *str1, const char *str2)

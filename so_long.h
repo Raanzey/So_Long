@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:31:18 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/17 16:18:29 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 12:36:22 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ typedef struct s_game
 int			read_map(t_game *game, char *file);
 int			key_hook(int key_code, t_game *game);
 int			ft_strcmp(const char *str1, const char *str2);
+int			finish(t_game *game);
 void		free_game(t_game *game);
 void		free_textures(t_game *game);
 void		ft_putnbr(int n);
-void		finish(t_game *game);
 void		error_message(int id);
 void		file_extension(char *filename, t_game *game);
 void		map_cntrl(t_game *game);
 void		free_game(t_game *game);
-void		free_map(char **map);
+void		free_map(char **map, int height);
 void		flood_fill_controller(t_game *game);
 void		window(t_game *game);
 

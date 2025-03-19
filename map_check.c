@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/17 16:22:04 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/18 16:18:58 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 
 void free_game(t_game *game)
 {
-    if (!game)
-        return;
-    free_textures(game);
+    free_textures(game);    
+	if (game->map)
+        free_map(game->map, game->height);
     if (game->win)
-        mlx_destroy_window(game->mlx, game->win);
+		mlx_destroy_window(game->mlx, game->win);
     if (game->mlx)
     {
         mlx_destroy_display(game->mlx);
         free(game->mlx);
-    }
-    if (game->map)
-        free_map(game->map);
+    }	
     free(game);
 }
 
@@ -35,7 +33,7 @@ static char	**copy_map(t_game *game)
 	int		i;
 	char	**map_cpy;
 
-	map_cpy = (char **)malloc(game->height * sizeof(char *));
+	map_cpy = malloc((game->height * sizeof(char *)) + 1);
 	if (!map_cpy)
 		return (NULL);
 	i = 0;
@@ -43,7 +41,7 @@ static char	**copy_map(t_game *game)
 	{
 		map_cpy[i] = ft_strdup(game->map[i]);
 		if (!map_cpy[i])
-			return (free_map(map_cpy),free(game), NULL);
+			return (free_game(game), NULL);
 		i++;
 	}
 	return (map_cpy);
@@ -74,7 +72,7 @@ static void	player_position(t_game *game)
 
 static void	flood_fill(t_game *game, char **map, int x, int y)
 {
-	if (x < 0 || y < 0 || map[y] == NULL || map[y][x] == '1'
+	if (x < 0 || y < 0 || x >= game->width || y >= game->height || map[y][x] == '1'
 		|| map[y][x] == 'F')
 		return ;
 	if (map[y][x] == 'C')
@@ -91,7 +89,6 @@ static void	flood_fill(t_game *game, char **map, int x, int y)
 void	flood_fill_controller(t_game *game)
 {
 	char	**new_map;
-
 	new_map = copy_map(game);
 	if (!new_map)
 		return (free_game(game));
@@ -100,8 +97,9 @@ void	flood_fill_controller(t_game *game)
 	flood_fill(game, new_map, game->player_x, game->player_y);
 	if (game->exit_count != 2 || game->count != game->collectibles)
 	{
-		free_game(game);
-		free_map(new_map);
+		free(game);
+		error_message(4);
+		exit(EXIT_FAILURE);
 	}
-	free(new_map);
+	free_map(new_map, game->height);	
 }

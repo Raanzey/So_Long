@@ -10,7 +10,7 @@ MLX_FLAGS=-L minilibx -lmlx -L/usr/X11R6/lib -lXext -lX11 -lm -lbsd
 $(NAME): $(SRCS) 
 	make -C ./libft -s
 	make -C ./minilibx -s
-	cc  -o  $(NAME) -g $(SRCS) $(LIBFT) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS)
+	gcc  -o  $(NAME) -g $(SRCS) $(LIBFT) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS)
 
 all: $(NAME)
 

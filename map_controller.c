@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:05:46 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/17 13:22:01 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 12:39:31 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static void	map_wall(t_game *game);
 void	map_cntrl(t_game *game)
 {
 	is_rectangular(game);
-	map_contents(game, 0, 0);
+	game->player_count = 0;
+	game->exit_count = 0;
+	game->collectibles = 0;
+	map_contents(game, -1, 0);
 	map_wall(game);
 }
 
@@ -28,7 +31,10 @@ static void	is_rectangular(t_game *game)
 	int	i;
 
 	if (!game->map || !game->map[0])
+	{
+		free_game(game);
 		exit(EXIT_FAILURE);
+	}
 	i = 0;
 	while (i < game->height)
 	{
@@ -48,17 +54,13 @@ void	file_extension(char *file_name, t_game *game)
 	str = ft_strrchr(file_name, '.');
 	if (ft_strcmp(str, ".ber") != 0)
 	{
-		free(game);
+		free_game(game);
 		error_message(1);
 	}
 }
 
 static void	map_contents(t_game *game, int i, int j)
 {
-	game->player_count = 0;
-	game->exit_count = 0;
-	game->collectibles = 0;
-	i = -1;
 	while (++i < game->height)
 	{
 		j = -1;
@@ -70,6 +72,11 @@ static void	map_contents(t_game *game, int i, int j)
 				game->exit_count++;
 			else if (game->map[i][j] == 'C')
 				game->collectibles++;
+			else if (game->map[i][j] != '1' && game->map[i][j] != '0')
+			{
+				free_game(game);
+				error_message(2);
+			}
 		}
 	}
 	if (game->player_count != 1 || game->exit_count != 1

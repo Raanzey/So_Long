@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:23:28 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/17 16:19:53 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/18 16:14:27 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	window(t_game *game)
 
 	i = 64;
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, game->width * i, game->height * i,
-			"So Long");
 	game->wall = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm", &i, &i);
 	game->path = mlx_xpm_file_to_image(game->mlx, "textures/path.xpm", &i, &i);
 	game->exit = mlx_xpm_file_to_image(game->mlx, "textures/exit.xpm", &i, &i);
@@ -65,6 +63,8 @@ void	window(t_game *game)
 			&i, &i);
 	game->player = mlx_xpm_file_to_image(game->mlx, "textures/player.xpm", &i,
 			&i);
+	game->win = mlx_new_window(game->mlx, game->width * i, game->height * i,
+			"So Long");
 	draw_map(game);
 }
 
@@ -101,7 +101,6 @@ int	key_hook(int key_code, t_game *game)
 {
 	if (key_code == 65307)
 	{
-		mlx_destroy_window(game->mlx, game->win);
 		free_game(game);
 		exit(EXIT_SUCCESS);
 	}
