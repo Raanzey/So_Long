@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:23:28 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/18 16:14:27 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/20 09:07:20 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ void	move_player(t_game *game, int dx, int dy)
 		game->player_x = new_x;
 		game->player_y = new_y;
 		mlx_put_image_to_window(game->mlx, game->win, game->player,
-			game->player_x * 64, game->player_y * 64);  
-        game->moves++;
-        ft_putnbr(game->moves);
+			game->player_x * 64, game->player_y * 64);
+		game->moves++;
+		ft_putnbr(game->moves);
 		write(1, "\n", 1);
 	}
 }
 
 int	key_hook(int key_code, t_game *game)
 {
-	if (key_code == 65307)
+	if (key_code == 65307 || key_code == 17)
 	{
 		free_game(game);
 		exit(EXIT_SUCCESS);

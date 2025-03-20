@@ -6,26 +6,26 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:39 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/19 13:05:18 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:38:26 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "minilibx/mlx.h"
+#include "so_long.h"
 
-void free_game(t_game *game)
+void	free_game(t_game *game)
 {
-	free_textures(game);    
+	free_textures(game);
 	if (game->map)
-        free_map(game->map, game->height);
-    if (game->win)
+		free_map(game->map, game->height);
+	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-    if (game->mlx)
-    {
-        mlx_destroy_display(game->mlx);
-        free(game->mlx);
-    }	
-    free(game);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	free(game);
 }
 
 static char	**copy_map(t_game *game)
@@ -72,8 +72,8 @@ static void	player_position(t_game *game)
 
 static void	flood_fill(t_game *game, char **map, int x, int y)
 {
-	if (x < 0 || y < 0 || x >= game->width || y >= game->height || map[y][x] == '1'
-		|| map[y][x] == 'F')
+	if (x < 0 || y < 0 || x >= game->width || y >= game->height
+		|| map[y][x] == '1' || map[y][x] == 'F')
 		return ;
 	if (map[y][x] == 'C')
 		game->count++;
@@ -89,6 +89,7 @@ static void	flood_fill(t_game *game, char **map, int x, int y)
 void	flood_fill_controller(t_game *game)
 {
 	char	**new_map;
+
 	new_map = copy_map(game);
 	if (!new_map)
 		return (free_game(game));
@@ -102,5 +103,5 @@ void	flood_fill_controller(t_game *game)
 		free(game);
 		error_message(4);
 	}
-	free_map(new_map, game->height);	
+	free_map(new_map, game->height);
 }

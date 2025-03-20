@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:31:18 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/19 12:36:22 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/20 09:12:15 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			read_map(t_game *game, char *file);
 int			key_hook(int key_code, t_game *game);
 int			ft_strcmp(const char *str1, const char *str2);
 int			finish(t_game *game);
+int			close_game(t_game *game);
 void		free_game(t_game *game);
 void		free_textures(t_game *game);
 void		ft_putnbr(int n);

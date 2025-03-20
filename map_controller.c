@@ -6,7 +6,7 @@
 /*   By: yozlu <yozlu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 14:05:46 by yozlu             #+#    #+#             */
-/*   Updated: 2025/03/19 13:20:31 by yozlu            ###   ########.fr       */
+/*   Updated: 2025/03/20 08:52:33 by yozlu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	file_extension(char *file_name, t_game *game)
 	char	*str;
 
 	str = ft_strrchr(file_name, '.');
-	if (ft_strcmp(str, ".ber") != 0)
+	if ( !str || ft_strcmp(str, ".ber") != 0)
 	{
 		free_game(game);
 		error_message(1);
